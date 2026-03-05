@@ -7,6 +7,7 @@ use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Mail\UserCreateMail;
 use App\Models\User;
+use App\Traits\ActivityLogTrait;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    use FileUploadTrait;
+    use FileUploadTrait, ActivityLogTrait;
 
     public function index(Request $request)
     {
@@ -124,6 +125,8 @@ class UserController extends Controller
             ]);
 
             $user->assignRole($data['role']);
+
+            $this->logActivity('CREATE', 'User', "Created admin user: {$user->name} ({$user->email})");
 
             try {
                 $emailData = [
@@ -255,6 +258,8 @@ class UserController extends Controller
                 $user->syncRoles([$data['role']]);
             }
 
+            $this->logActivity('UPDATE', 'User', "Updated user: {$user->name} ({$user->email})");
+
             $user->load(['roles' => function ($q) {
                 $q->select('id', 'name');
             }]);
@@ -314,7 +319,11 @@ class UserController extends Controller
             }
 
             $this->deleteFile($user->profile_image);
+            $userName = $user->name;
+            $userEmail = $user->email;
             $user->delete();
+
+            $this->logActivity('DELETE', 'User', "Deleted user: {$userName} ({$userEmail})");
 
             return response()->json([
                 'status' => 'success',
@@ -364,6 +373,8 @@ class UserController extends Controller
             }
 
             $user->update(['is_active' => true]);
+
+            $this->logActivity('ACTIVATE', 'User', "Activated user: {$user->name}");
 
             return response()->json([
                 'status' => 'success',
@@ -415,6 +426,8 @@ class UserController extends Controller
 
             $user->update(['is_active' => false]);
 
+            $this->logActivity('DEACTIVATE', 'User', "Deactivated user: {$user->name}");
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'User deactivated successfully',
@@ -462,6 +475,7 @@ class UserController extends Controller
 
             if ($imagePath) {
                 $user->update(['profile_image' => $imagePath]);
+                $this->logActivity('UPDATE_PROFILE_IMAGE', 'User', "Updated profile image for user: {$user->name}");
             }
 
             return response()->json([
@@ -510,6 +524,8 @@ class UserController extends Controller
 
             $this->deleteFile($user->profile_image);
             $user->update(['profile_image' => null]);
+
+            $this->logActivity('REMOVE_PROFILE_IMAGE', 'User', "Removed profile image for user: {$user->name}");
 
             return response()->json([
                 'status' => 'success',

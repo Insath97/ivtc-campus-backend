@@ -8,9 +8,11 @@ use App\Http\Requests\UpdateRoleRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Traits\ActivityLogTrait;
 
 class RoleController extends Controller
 {
+    use ActivityLogTrait;
     public function index(Request $request)
     {
         try {
@@ -70,6 +72,8 @@ class RoleController extends Controller
                 $permissions = Permission::whereIn('id', $data['permissions'])->get();
                 $role->syncPermissions($permissions);
             }
+
+            $this->logActivity('CREATE', 'Role', "Created role: {$role->name}");
 
             return response()->json([
                 'status' => 'success',
@@ -142,6 +146,8 @@ class RoleController extends Controller
                 $role->syncPermissions($permissions);
             }
 
+            $this->logActivity('UPDATE', 'Role', "Updated role: {$role->name}");
+
             $role->load('permissions');
 
             return response()->json([
@@ -192,7 +198,10 @@ class RoleController extends Controller
                 ], 422);
             }
 
+            $roleName = $role->name;
             $role->delete();
+
+            $this->logActivity('DELETE', 'Role', "Deleted role: {$roleName}");
 
             return response()->json([
                 'status' => 'success',

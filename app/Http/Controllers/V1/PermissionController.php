@@ -7,9 +7,11 @@ use App\Http\Requests\CreatePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use App\Traits\ActivityLogTrait;
 
 class PermissionController extends Controller
 {
+    use ActivityLogTrait;
     public function index(Request $request)
     {
         try {
@@ -73,6 +75,8 @@ class PermissionController extends Controller
             $data['guard_name'] = 'api';
 
             $permission = Permission::create($data);
+
+            $this->logActivity('CREATE', 'Permission', "Created permission: {$permission->name}");
 
             return response()->json([
                 'status' => 'success',
@@ -138,6 +142,8 @@ class PermissionController extends Controller
 
             $permission->update($data);
 
+            $this->logActivity('UPDATE', 'Permission', "Updated permission: {$permission->name}");
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Permission updated successfully',
@@ -176,7 +182,10 @@ class PermissionController extends Controller
                 ], 422);
             }
 
+            $permissionName = $permission->name;
             $permission->delete();
+
+            $this->logActivity('DELETE', 'Permission', "Deleted permission: {$permissionName}");
 
             return response()->json([
                 'status' => 'success',
