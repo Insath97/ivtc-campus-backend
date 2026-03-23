@@ -50,7 +50,7 @@ class RoleController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve roles',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -84,7 +84,7 @@ class RoleController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to create role',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -111,7 +111,7 @@ class RoleController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve role',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -159,7 +159,7 @@ class RoleController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to update role',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -211,7 +211,7 @@ class RoleController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to delete role',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -240,7 +240,7 @@ class RoleController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve roles',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }

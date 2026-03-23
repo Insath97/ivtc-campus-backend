@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionsSeeder extends Seeder
 {
@@ -30,6 +30,12 @@ class PermissionsSeeder extends Seeder
             ['name' => 'User Update', 'group_name' => 'User Management Permissions'],
             ['name' => 'User Delete', 'group_name' => 'User Management Permissions'],
 
+            /* Category Management */
+            ['name' => 'Category Index',  'group_name' => 'Category Management Permissions'],
+            ['name' => 'Category Create', 'group_name' => 'Category Management Permissions'],
+            ['name' => 'Category Update', 'group_name' => 'Category Management Permissions'],
+            ['name' => 'Category Delete', 'group_name' => 'Category Management Permissions'],
+
         ];
 
         foreach ($permissions as $permission) {
@@ -39,5 +45,10 @@ class PermissionsSeeder extends Seeder
                 'guard_name' => 'api',
             ]);
         }
+
+        $role = Role::firstOrCreate(['guard_name' => 'api', 'name' => 'Super Admin']);
+
+        $allPermissions = Permission::all();
+        $role->syncPermissions($allPermissions);
     }
 }

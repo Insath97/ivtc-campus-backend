@@ -87,7 +87,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve users',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -165,7 +165,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to create user',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -203,7 +203,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve user',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -282,7 +282,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to update user',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -333,7 +333,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to delete user',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -385,7 +385,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to activate user',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -437,7 +437,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to deactivate user',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -487,7 +487,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to update profile image',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -536,7 +536,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to remove profile image',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }

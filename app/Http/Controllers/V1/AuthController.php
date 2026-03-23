@@ -101,7 +101,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to login',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -126,7 +126,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to logout',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -166,7 +166,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to fetch user details',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }

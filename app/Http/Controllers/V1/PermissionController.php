@@ -60,7 +60,7 @@ class PermissionController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve permissions',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -87,7 +87,7 @@ class PermissionController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to create permission',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -114,7 +114,7 @@ class PermissionController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve permission',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -153,7 +153,7 @@ class PermissionController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to update permission',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -195,7 +195,7 @@ class PermissionController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to delete permission',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\CategoryController;
-use App\Http\Controllers\V1\LevelController;
 use App\Http\Controllers\V1\PermissionController;
 use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\UserController;
@@ -35,6 +34,8 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
         Route::delete('{id}/profile-image', [UserController::class, 'removeProfileImage']);
     });
 
-    /* category routes */
     Route::apiResource('categories', CategoryController::class);
+    Route::prefix('categories')->group(function () {
+        Route::get('active/list', [CategoryController::class, 'getActiveList']);
+    });
 });

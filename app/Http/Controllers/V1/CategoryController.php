@@ -6,15 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
-use App\Models\ActivityLog;
 use App\Traits\ActivityLogTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements HasMiddleware
 {
     use ActivityLogTrait;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:Category Index', ['only' => ['index', 'show']]),
+            new Middleware('permission:Category Create', ['only' => ['store']]),
+            new Middleware('permission:Category Update', ['only' => ['update']]),
+            new Middleware('permission:Category Delete', ['only' => ['destroy']]),
+        ];
+    }
 
     public function index(Request $request)
     {
@@ -22,10 +32,10 @@ class CategoryController extends Controller
             $perPage = $request->get('per_page', 15);
             $query = Category::query();
 
-            if ($request->has('search')) {
+            // Search
+            if ($request->has('search') && $request->search != '') {
                 $search = $request->search;
-                $query->where('name', 'LIKE', "%{$search}%")
-                      ->orWhere('slug', 'LIKE', "%{$search}%");
+                $query->search($search);
             }
 
             $categories = $query->orderBy('name', 'asc')->paginate($perPage);
@@ -39,7 +49,7 @@ class CategoryController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve categories',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -66,7 +76,7 @@ class CategoryController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to create category',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -92,7 +102,7 @@ class CategoryController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to retrieve category',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -128,7 +138,7 @@ class CategoryController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to update category',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
@@ -158,7 +168,34 @@ class CategoryController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to delete category',
-                'error' => $th->getMessage()
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
+            ], 500);
+        }
+    }
+
+    public function getActiveList()
+    {
+        try {
+            $categories = Category::active()->ordered()->get(['id', 'name', 'slug']);
+
+            if ($categories->isEmpty()) {
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'No active categories found',
+                    'data' => []
+                ], 200);
+            }
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Active categories retrieved successfully',
+                'data' => $categories
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to retrieve active categories',
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }
     }
