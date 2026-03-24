@@ -23,8 +23,5 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 /public/uploads/*
-docker-compose.yml
-Dockerfile
-setup.sh
-nginx/
+
 
