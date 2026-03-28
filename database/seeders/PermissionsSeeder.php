@@ -43,7 +43,7 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Course Soft Delete', 'group_name' => 'Course Permissions'],
             ['name' => 'Course Force Delete', 'group_name' => 'Course Permissions'],
             ['name' => 'Course Restore', 'group_name' => 'Course Permissions'],
-            ['name' => 'Course Toggle Active', 'group_name' => 'Course Management Permissions'],
+            ['name' => 'Course Toggle Active', 'group_name' => 'Course Permissions'],
             ['name' => 'Course Toggle Registration', 'group_name' => 'Course Permissions'],
             ['name' => 'Course Toggle New', 'group_name' => 'Course Permissions'],
 
