@@ -25,16 +25,27 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Role Delete', 'group_name' => 'Access Management Permissions'],
 
             /* User Management */
-            ['name' => 'User Index',  'group_name' => 'User Management Permissions'],
-            ['name' => 'User Create', 'group_name' => 'User Management Permissions'],
-            ['name' => 'User Update', 'group_name' => 'User Management Permissions'],
-            ['name' => 'User Delete', 'group_name' => 'User Management Permissions'],
+            ['name' => 'User Index',  'group_name' => 'User Permissions'],
+            ['name' => 'User Create', 'group_name' => 'User Permissions'],
+            ['name' => 'User Update', 'group_name' => 'User Permissions'],
+            ['name' => 'User Delete', 'group_name' => 'User Permissions'],
 
             /* Category Management */
-            ['name' => 'Category Index',  'group_name' => 'Category Management Permissions'],
-            ['name' => 'Category Create', 'group_name' => 'Category Management Permissions'],
-            ['name' => 'Category Update', 'group_name' => 'Category Management Permissions'],
-            ['name' => 'Category Delete', 'group_name' => 'Category Management Permissions'],
+            ['name' => 'Category Index',  'group_name' => 'Category Permissions'],
+            ['name' => 'Category Create', 'group_name' => 'Category Permissions'],
+            ['name' => 'Category Update', 'group_name' => 'Category Permissions'],
+            ['name' => 'Category Delete', 'group_name' => 'Category Permissions'],
+
+            /* Course Management */
+            ['name' => 'Course Index', 'group_name' => 'Course Permissions'],
+            ['name' => 'Course Create', 'group_name' => 'Course Permissions'],
+            ['name' => 'Course Update', 'group_name' => 'Course Permissions'],
+            ['name' => 'Course Soft Delete', 'group_name' => 'Course Permissions'],
+            ['name' => 'Course Force Delete', 'group_name' => 'Course Permissions'],
+            ['name' => 'Course Restore', 'group_name' => 'Course Permissions'],
+            ['name' => 'Course Toggle Active', 'group_name' => 'Course Management Permissions'],
+            ['name' => 'Course Toggle Registration', 'group_name' => 'Course Permissions'],
+            ['name' => 'Course Toggle New', 'group_name' => 'Course Permissions'],
 
         ];
 

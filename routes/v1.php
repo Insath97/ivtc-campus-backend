@@ -5,6 +5,7 @@ use App\Http\Controllers\V1\CategoryController;
 use App\Http\Controllers\V1\PermissionController;
 use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\UserController;
+use App\Http\Controllers\V1\CourseController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     /* login */
     Route::post('login', [AuthController::class, 'login']);
+
+    /* Category Public Routes */
+    Route::get('public/categories', [CategoryController::class, 'publicCategories']);
+    Route::get('public/categories/{id_or_slug}', [CategoryController::class, 'publicCategoryByDetail']);
+
+    /* Course Public Routes */
+    Route::get('public/courses', [CourseController::class, 'publicCourses']);
+    Route::get('public/courses/{id_or_slug}', [CourseController::class, 'publicCourseByDetail']);
 });
 
 /* protected routes */
@@ -37,5 +46,15 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::apiResource('categories', CategoryController::class);
     Route::prefix('categories')->group(function () {
         Route::get('active/list', [CategoryController::class, 'getActiveList']);
+    });
+
+    Route::apiResource('courses', CourseController::class);
+    Route::prefix('courses')->group(function () {
+        Route::get('active/list', [CourseController::class, 'getActiveList']);
+        Route::patch('{id}/restore', [CourseController::class, 'restore']);
+        Route::delete('{id}/force', [CourseController::class, 'forceDelete']);
+        Route::patch('{id}/toggle-active', [CourseController::class, 'toggleActive']);
+        Route::patch('{id}/toggle-registration', [CourseController::class, 'toggleShowInRegistration']);
+        Route::patch('{id}/toggle-is-new', [CourseController::class, 'toggleIsNew']);
     });
 });

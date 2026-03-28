@@ -45,19 +45,160 @@ namespace App\Models{
  * @property string $name
  * @property string $slug
  * @property string|null $description
+ * @property bool $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Course> $courses
+ * @property-read int|null $courses_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category active()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category ordered()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category search($search)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Category whereUpdatedAt($value)
  */
 	class Category extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $category_id
+ * @property string $name
+ * @property string $slug
+ * @property string $code
+ * @property int $duration
+ * @property string $duration_unit
+ * @property string $level
+ * @property string $medium
+ * @property string $short_description
+ * @property string $full_description
+ * @property bool $show_in_registration
+ * @property bool $is_active
+ * @property bool $is_new
+ * @property string|null $primary_image
+ * @property string|null $fees_structure
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Category $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CourseImage> $images
+ * @property-read int|null $images_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Tag> $tags
+ * @property-read int|null $tags_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CourseVideo> $videos
+ * @property-read int|null $videos_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereDuration($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereDurationUnit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereFeesStructure($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereFullDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereIsNew($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereMedium($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course wherePrimaryImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereShortDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereShowInRegistration($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereUpdatedAt($value)
+ */
+	class Course extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $course_id
+ * @property string $image_path
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Course $course
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseImage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseImage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseImage query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseImage whereCourseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseImage whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseImage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseImage whereImagePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseImage whereUpdatedAt($value)
+ */
+	class CourseImage extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $course_id
+ * @property int $tag_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseTag newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseTag newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseTag query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseTag whereCourseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseTag whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseTag whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseTag whereTagId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseTag whereUpdatedAt($value)
+ */
+	class CourseTag extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $course_id
+ * @property string $video_url
+ * @property string|null $title
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Course $course
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseVideo newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseVideo newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseVideo query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseVideo whereCourseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseVideo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseVideo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseVideo whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseVideo whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CourseVideo whereVideoUrl($value)
+ */
+	class CourseVideo extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Course> $courses
+ * @property-read int|null $courses_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Tag whereUpdatedAt($value)
+ */
+	class Tag extends \Eloquent {}
 }
 
 namespace App\Models{
