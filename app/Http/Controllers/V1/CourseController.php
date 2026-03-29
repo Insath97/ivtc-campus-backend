@@ -647,7 +647,7 @@ class CourseController extends Controller implements HasMiddleware
 
             $courses = $query->paginate($perPage, [
                 'id', 'category_id', 'name', 'slug', 'code', 'primary_image',
-                'duration', 'duration_unit', 'level', 'medium', 'short_description', 'is_new'
+                'duration', 'duration_unit', 'level', 'medium', 'short_description', 'is_new', 'has_certificate'
             ]);
 
             return response()->json([

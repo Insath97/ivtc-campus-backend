@@ -24,6 +24,7 @@ class Course extends Model
         'show_in_registration',
         'is_active',
         'is_new',
+        'has_certificate',
         'primary_image',
         'fees_structure',
     ];
@@ -32,6 +33,7 @@ class Course extends Model
         'show_in_registration' => 'boolean',
         'is_active' => 'boolean',
         'is_new' => 'boolean',
+        'has_certificate' => 'boolean',
     ];
 
     public function category()

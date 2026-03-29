@@ -26,6 +26,7 @@ return new class extends Migration
             $table->boolean('show_in_registration')->default(true);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_new')->default(true);
+            $table->boolean('has_certificate')->default(true);
             $table->string('primary_image')->nullable();
             $table->longText('fees_structure')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();

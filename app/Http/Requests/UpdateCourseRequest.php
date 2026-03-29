@@ -30,6 +30,7 @@ class UpdateCourseRequest extends FormRequest
             'show_in_registration' => 'sometimes|boolean',
             'is_active' => 'sometimes|boolean',
             'is_new' => 'sometimes|boolean',
+            'has_certificate' => 'sometimes|boolean',
             'primary_image' => 'sometimes|nullable|string',
             'fees_structure' => 'sometimes|nullable|string',
             'tags' => 'sometimes|array',
