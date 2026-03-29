@@ -612,4 +612,23 @@ class CourseController extends Controller implements HasMiddleware
             ], 500);
         }
     }
+
+    public function getTags()
+    {
+        try {
+            $tags = Tag::orderBy('name', 'asc')->get(['id', 'name', 'slug']);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Public tags retrieved successfully',
+                'data' => $tags
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to retrieve public tags',
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
+            ], 500);
+        }
+    }
 }

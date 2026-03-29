@@ -47,6 +47,10 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Course Toggle Registration', 'group_name' => 'Course Permissions'],
             ['name' => 'Course Toggle New', 'group_name' => 'Course Permissions'],
 
+            /* Activity Log Management */
+            ['name' => 'Activity Log Index',  'group_name' => 'Activity Log Permissions'],
+            ['name' => 'Activity Log Show',   'group_name' => 'Activity Log Permissions'],
+
         ];
 
         foreach ($permissions as $permission) {

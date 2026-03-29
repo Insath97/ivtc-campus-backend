@@ -13,6 +13,7 @@ use App\Traits\ActivityLogTrait;
 class RoleController extends Controller
 {
     use ActivityLogTrait;
+    
     public function index(Request $request)
     {
         try {

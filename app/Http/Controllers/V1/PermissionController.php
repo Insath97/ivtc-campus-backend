@@ -8,10 +8,27 @@ use App\Http\Requests\UpdatePermissionRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use App\Traits\ActivityLogTrait;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class PermissionController extends Controller
+class PermissionController extends Controller implements HasMiddleware
 {
     use ActivityLogTrait;
+
+    /**
+     * Get the middleware assigned to the controller.
+     */
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:Permission Index', only: ['index']),
+            new Middleware('permission:Permission Create', only: ['store']),
+            new Middleware('permission:Permission Update', only: ['update']),
+            new Middleware('permission:Permission Delete', only: ['destroy']),
+        ];
+    }
+
+
     public function index(Request $request)
     {
         try {

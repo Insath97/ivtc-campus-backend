@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\ActivityLogController;
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\CategoryController;
 use App\Http\Controllers\V1\PermissionController;
@@ -14,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     /* login */
     Route::post('login', [AuthController::class, 'login']);
-
 });
 
 /* protected routes */
@@ -41,6 +41,7 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
         Route::get('active/list', [CategoryController::class, 'getActiveList']);
     });
 
+    Route::get('tags', [CourseController::class, 'getTags']);
     Route::apiResource('courses', CourseController::class);
     Route::prefix('courses')->group(function () {
         Route::get('active/list', [CourseController::class, 'getActiveList']);
@@ -49,5 +50,10 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
         Route::patch('{id}/toggle-active', [CourseController::class, 'toggleActive']);
         Route::patch('{id}/toggle-registration', [CourseController::class, 'toggleShowInRegistration']);
         Route::patch('{id}/toggle-is-new', [CourseController::class, 'toggleIsNew']);
+    });
+
+    Route::prefix('activity-logs')->group(function () {
+        Route::get('/', [ActivityLogController::class, 'index']);
+        Route::get('{id}', [ActivityLogController::class, 'show']);
     });
 });
