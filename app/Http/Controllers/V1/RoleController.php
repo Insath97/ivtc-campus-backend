@@ -9,10 +9,25 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use App\Traits\ActivityLogTrait;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class RoleController extends Controller
+class RoleController extends Controller implements HasMiddleware
 {
     use ActivityLogTrait;
+    
+    /**
+     * Get the middleware assigned to the controller.
+     */
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:Role Index', only: ['index', 'show']),
+            new Middleware('permission:Role Create', only: ['store']),
+            new Middleware('permission:Role Update', only: ['update']),
+            new Middleware('permission:Role Delete', only: ['destroy']),
+        ];
+    }
     
     public function index(Request $request)
     {

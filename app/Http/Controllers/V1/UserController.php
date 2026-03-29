@@ -14,10 +14,25 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class UserController extends Controller
+class UserController extends Controller implements HasMiddleware
 {
     use FileUploadTrait, ActivityLogTrait;
+    
+    /**
+     * Get the middleware assigned to the controller.
+     */
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('permission:User Index', only: ['index', 'show']),
+            new Middleware('permission:User Create', only: ['store']),
+            new Middleware('permission:User Update', only: ['update', 'activate', 'deactivate', 'updateProfileImage', 'removeProfileImage']),
+            new Middleware('permission:User Delete', only: ['destroy']),
+        ];
+    }
 
     public function index(Request $request)
     {
