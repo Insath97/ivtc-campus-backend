@@ -23,6 +23,7 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::get('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
 
+    Route::get('permissions/list/', [PermissionController::class, 'getAvailablePermissions']);
     Route::apiResource('permissions', PermissionController::class);
 
     Route::get('roles/list/', [RoleController::class, 'getAvailableRoles']);
