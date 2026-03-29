@@ -15,13 +15,6 @@ Route::prefix('v1')->group(function () {
     /* login */
     Route::post('login', [AuthController::class, 'login']);
 
-    /* Category Public Routes */
-    Route::get('public/categories', [CategoryController::class, 'publicCategories']);
-    Route::get('public/categories/{id_or_slug}', [CategoryController::class, 'publicCategoryByDetail']);
-
-    /* Course Public Routes */
-    Route::get('public/courses', [CourseController::class, 'publicCourses']);
-    Route::get('public/courses/{id_or_slug}', [CourseController::class, 'publicCourseByDetail']);
 });
 
 /* protected routes */

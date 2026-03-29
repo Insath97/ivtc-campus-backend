@@ -10,3 +10,5 @@ Route::get('/health-check', function () {
 /* version 1 routes */
 require __DIR__ . '/v1.php';
 
+/* public routes */
+require __DIR__ . '/public.php';
