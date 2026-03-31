@@ -7,6 +7,7 @@ use App\Http\Controllers\V1\PermissionController;
 use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\CourseController;
+use App\Http\Controllers\V1\CertificationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -56,5 +57,13 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::prefix('activity-logs')->group(function () {
         Route::get('/', [ActivityLogController::class, 'index']);
         Route::get('{id}', [ActivityLogController::class, 'show']);
+    });
+
+    Route::apiResource('certifications', CertificationController::class);
+    Route::prefix('certifications')->group(function () {
+        Route::post('import', [CertificationController::class, 'bulkImport']);
+        Route::patch('{id}/restore', [CertificationController::class, 'restore']);
+        Route::delete('{id}/force', [CertificationController::class, 'forceDelete']);
+        Route::patch('{id}/toggle-active', [CertificationController::class, 'toggleActive']);
     });
 });

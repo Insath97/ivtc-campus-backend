@@ -51,6 +51,16 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Activity Log Index',  'group_name' => 'Activity Log Permissions'],
             ['name' => 'Activity Log Show',   'group_name' => 'Activity Log Permissions'],
 
+            /* Certification Management */
+            ['name' => 'Certification Index',  'group_name' => 'Certification Permissions'],
+            ['name' => 'Certification Create', 'group_name' => 'Certification Permissions'],
+            ['name' => 'Certification Update', 'group_name' => 'Certification Permissions'],
+            ['name' => 'Certification Soft Delete', 'group_name' => 'Certification Permissions'],
+            ['name' => 'Certification Force Delete', 'group_name' => 'Certification Permissions'],
+            ['name' => 'Certification Restore', 'group_name' => 'Certification Permissions'],
+            ['name' => 'Certification Toggle Active', 'group_name' => 'Certification Permissions'],
+            ['name' => 'Certification Import', 'group_name' => 'Certification Permissions'],
+
         ];
 
         foreach ($permissions as $permission) {
