@@ -70,6 +70,57 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
+ * @property string $full_name
+ * @property \Illuminate\Support\Carbon $starting_date
+ * @property \Illuminate\Support\Carbon $ending_date
+ * @property string $entrol_number
+ * @property string $course_code
+ * @property string $verification_code
+ * @property string $certificate_number
+ * @property string $nic
+ * @property bool $is_active
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification active()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification ordered()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification search($search)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereCertificateNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereCourseCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereEndingDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereEntrolNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereFullName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereNic($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereStartingDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification whereVerificationCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Certification withoutTrashed()
+ */
+	class Certification extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CmsContent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CmsContent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CmsContent pageContent(string $page)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CmsContent query()
+ */
+	class CmsContent extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
  * @property int $category_id
  * @property string $name
  * @property string $slug
@@ -85,8 +136,11 @@ namespace App\Models{
  * @property bool $is_new
  * @property string|null $primary_image
  * @property string|null $fees_structure
+ * @property int|null $created_by
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property bool|null $has_certificate
  * @property-read \App\Models\Category $category
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CourseImage> $images
  * @property-read int|null $images_count
@@ -94,16 +148,24 @@ namespace App\Models{
  * @property-read int|null $tags_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CourseVideo> $videos
  * @property-read int|null $videos_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course active()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course forRegistration()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course ordered()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course search($search)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereDuration($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereDurationUnit($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereFeesStructure($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereFullDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereHasCertificate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereIsNew($value)
@@ -115,6 +177,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereShowInRegistration($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Course whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Course withoutTrashed()
  */
 	class Course extends \Eloquent {}
 }

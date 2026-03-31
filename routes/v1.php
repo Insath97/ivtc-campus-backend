@@ -8,6 +8,7 @@ use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\CourseController;
 use App\Http\Controllers\V1\CertificationController;
+use App\Http\Controllers\V1\CmsContentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -65,5 +66,10 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
         Route::patch('{id}/restore', [CertificationController::class, 'restore']);
         Route::delete('{id}/force', [CertificationController::class, 'forceDelete']);
         Route::patch('{id}/toggle-active', [CertificationController::class, 'toggleActive']);
+    });
+
+    Route::prefix('cms')->group(function () {
+        Route::get('/', [CmsContentController::class, 'index']);
+        Route::post('update', [CmsContentController::class, 'update']);
     });
 });

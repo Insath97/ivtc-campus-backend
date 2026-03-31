@@ -61,6 +61,10 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Certification Toggle Active', 'group_name' => 'Certification Permissions'],
             ['name' => 'Certification Import', 'group_name' => 'Certification Permissions'],
 
+            /* CMS Management */
+            ['name' => 'CMS Index',  'group_name' => 'CMS Management Permissions'],
+            ['name' => 'CMS Update', 'group_name' => 'CMS Management Permissions'],
+
         ];
 
         foreach ($permissions as $permission) {

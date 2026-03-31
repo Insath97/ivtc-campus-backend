@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\Public\CMSController;
 use App\Http\Controllers\V1\Public\PublicCourseController;
 use App\Http\Controllers\V1\Public\PublicCategoryController;
 use App\Http\Controllers\V1\Public\PublicCertificationController;
@@ -18,4 +19,7 @@ Route::prefix('v1/public')->group(function () {
 
     /* Certification Public Routes */
     Route::post('certifications/verify', [PublicCertificationController::class, 'verify']);
+
+    /* CMS Public Routes */
+    Route::get('cms/{page}', [CMSController::class, 'getPageContent']);
 });
