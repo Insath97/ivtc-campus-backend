@@ -15,12 +15,12 @@ class UpdateCourseRequest extends FormRequest
 
     public function rules(): array
     {
-        $id = $this->route('id');
+        $id = $this->route('course') ?? $this->route('id');
         return [
             'category_id' => 'sometimes|exists:categories,id',
             'name' => 'sometimes|string|max:255',
-            'slug' => 'sometimes|nullable|string|unique:courses,slug,' . $id . '|max:255',
-            'code' => 'sometimes|string|unique:courses,code,' . $id . '|max:50',
+            'slug' => 'sometimes|nullable|string|unique:courses,slug,' . $id ,
+            'code' => 'sometimes|string|unique:courses,code,' . $id,
             'duration' => 'sometimes|integer|min:1',
             'duration_unit' => 'sometimes|in:month,year',
             'level' => 'sometimes|in:Beginner,Intermediate,Advanced,Professional',
