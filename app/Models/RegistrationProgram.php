@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Pathway extends Model
+class RegistrationProgram extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'pathway_id',
         'name',
         'slug',
-        'description',
         'is_active',
     ];
 
@@ -21,7 +21,15 @@ class Pathway extends Model
     ];
 
     /**
-     * Scope a query to only include active pathways.
+     * Relationship with the pathway.
+     */
+    public function pathway()
+    {
+        return $this->belongsTo(Pathway::class);
+    }
+
+    /**
+     * Scope a query to only include active programs.
      */
     public function scopeActive($query)
     {
@@ -29,7 +37,7 @@ class Pathway extends Model
     }
 
     /**
-     * Scope a query to search pathways by name or slug.
+     * Scope a query to search programs by name or slug.
      */
     public function scopeSearch($query, $search)
     {
@@ -40,7 +48,7 @@ class Pathway extends Model
     }
 
     /**
-     * Scope a query to order pathways by creation date.
+     * Scope a query to order programs by creation date.
      */
     public function scopeOrdered($query)
     {
@@ -48,7 +56,7 @@ class Pathway extends Model
     }
 
     /**
-     * Activate the pathway.
+     * Activate the program.
      */
     public function activate()
     {
@@ -56,15 +64,7 @@ class Pathway extends Model
     }
 
     /**
-     * Relationship with registration programs.
-     */
-    public function registrationPrograms()
-    {
-        return $this->hasMany(RegistrationProgram::class);
-    }
-
-    /**
-     * Deactivate the pathway.
+     * Deactivate the program.
      */
     public function deactivate()
     {

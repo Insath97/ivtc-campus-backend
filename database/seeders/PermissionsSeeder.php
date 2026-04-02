@@ -71,6 +71,13 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Pathway Update',        'group_name' => 'Pathway Permissions'],
             ['name' => 'Pathway Delete',        'group_name' => 'Pathway Permissions'],
             ['name' => 'Pathway Toggle Active', 'group_name' => 'Pathway Permissions'],
+
+            /* Registration Program Management */
+            ['name' => 'Registration Program Index',         'group_name' => 'Registration Program Permissions'],
+            ['name' => 'Registration Program Create',        'group_name' => 'Registration Program Permissions'],
+            ['name' => 'Registration Program Update',        'group_name' => 'Registration Program Permissions'],
+            ['name' => 'Registration Program Delete',        'group_name' => 'Registration Program Permissions'],
+            ['name' => 'Registration Program Toggle Active', 'group_name' => 'Registration Program Permissions'],
         ];
 
         foreach ($permissions as $permission) {

@@ -10,6 +10,7 @@ use App\Http\Controllers\V1\CourseController;
 use App\Http\Controllers\V1\CertificationController;
 use App\Http\Controllers\V1\CmsContentController;
 use App\Http\Controllers\V1\PathwayController;
+use App\Http\Controllers\V1\RegistrationProgramController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -78,5 +79,12 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::prefix('pathways')->group(function () {
         Route::get('active/list', [PathwayController::class, 'getActiveList']);
         Route::patch('{id}/toggle-active', [PathwayController::class, 'toggleActive']);
+    });
+
+    Route::apiResource('registration-programs', RegistrationProgramController::class);
+    Route::prefix('registration-programs')->group(function () {
+        Route::get('active/list', [RegistrationProgramController::class, 'getActiveList']);
+        Route::get('pathway/{pathway_id}', [RegistrationProgramController::class, 'getByPathway']);
+        Route::patch('{id}/toggle-active', [RegistrationProgramController::class, 'toggleActive']);
     });
 });
