@@ -9,6 +9,7 @@ use App\Http\Controllers\V1\UserController;
 use App\Http\Controllers\V1\CourseController;
 use App\Http\Controllers\V1\CertificationController;
 use App\Http\Controllers\V1\CmsContentController;
+use App\Http\Controllers\V1\PathwayController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -71,5 +72,11 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::prefix('cms')->group(function () {
         Route::get('/', [CmsContentController::class, 'index']);
         Route::post('update', [CmsContentController::class, 'update']);
+    });
+
+    Route::apiResource('pathways', PathwayController::class);
+    Route::prefix('pathways')->group(function () {
+        Route::get('active/list', [PathwayController::class, 'getActiveList']);
+        Route::patch('{id}/toggle-active', [PathwayController::class, 'toggleActive']);
     });
 });

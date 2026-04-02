@@ -65,6 +65,12 @@ class PermissionsSeeder extends Seeder
             ['name' => 'CMS Index',  'group_name' => 'CMS Management Permissions'],
             ['name' => 'CMS Update', 'group_name' => 'CMS Management Permissions'],
 
+            /* Pathway Management */
+            ['name' => 'Pathway Index',         'group_name' => 'Pathway Permissions'],
+            ['name' => 'Pathway Create',        'group_name' => 'Pathway Permissions'],
+            ['name' => 'Pathway Update',        'group_name' => 'Pathway Permissions'],
+            ['name' => 'Pathway Delete',        'group_name' => 'Pathway Permissions'],
+            ['name' => 'Pathway Toggle Active', 'group_name' => 'Pathway Permissions'],
         ];
 
         foreach ($permissions as $permission) {
