@@ -1,4 +1,4 @@
-`<?php
+<?php
 
 namespace App\Http\Controllers\V1;
 
@@ -20,7 +20,7 @@ use Illuminate\Routing\Controllers\Middleware;
 class UserController extends Controller implements HasMiddleware
 {
     use FileUploadTrait, ActivityLogTrait;
-    
+
     /**
      * Get the middleware assigned to the controller.
      */
@@ -552,4 +552,4 @@ class UserController extends Controller implements HasMiddleware
         }
     }
 }
-`
+
