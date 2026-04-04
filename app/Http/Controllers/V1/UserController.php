@@ -1,4 +1,4 @@
-<?php
+`<?php
 
 namespace App\Http\Controllers\V1;
 
@@ -66,7 +66,6 @@ class UserController extends Controller implements HasMiddleware
                     $q->where('name', $roleName);
                 });
             }
-            $query->where('user_type', 'admin');
             $query->orderBy('created_at', 'desc');
             $query->with(['roles' => function ($q) {
                 $q->select('id', 'name');
@@ -131,7 +130,6 @@ class UserController extends Controller implements HasMiddleware
             $user = User::create([
                 'name' => $data['name'],
                 'username' => $data['username'],
-                'user_type' => 'admin',
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'profile_image' => $data['profile_image'] ?? null,
@@ -263,8 +261,6 @@ class UserController extends Controller implements HasMiddleware
             } else {
                 unset($data['password']);
             }
-
-            $data['user_type'] = 'admin';
 
             $user->update($data);
             $user->refresh();
@@ -556,3 +552,4 @@ class UserController extends Controller implements HasMiddleware
         }
     }
 }
+`

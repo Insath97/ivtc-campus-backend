@@ -12,7 +12,6 @@ class AuthController extends Controller
 {
       /**
      * Admin Login
-     * Only users with user_type = 'admin' can login here
      */
     public function login(Request $request)
     {
