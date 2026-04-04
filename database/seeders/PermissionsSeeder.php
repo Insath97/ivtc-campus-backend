@@ -91,6 +91,10 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Contact Show',   'group_name' => 'Contact Permissions'],
             ['name' => 'Contact Reply',  'group_name' => 'Contact Permissions'],
             ['name' => 'Contact Delete', 'group_name' => 'Contact Permissions'],
+
+            /* Setting Management */
+            ['name' => 'Setting Index',  'group_name' => 'Setting Permissions'],
+            ['name' => 'Setting Update', 'group_name' => 'Setting Permissions'],
         ];
 
         foreach ($permissions as $permission) {

@@ -13,6 +13,7 @@ use App\Http\Controllers\V1\PathwayController;
 use App\Http\Controllers\V1\RegistrationProgramController;
 use App\Http\Controllers\V1\RegistrationController;
 use App\Http\Controllers\V1\ContactController;
+use App\Http\Controllers\V1\SettingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -96,9 +97,13 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
         Route::patch('{id}/reject', [RegistrationController::class, 'reject']);
     });
 
-    /* Contact Management Routes */
     Route::apiResource('contacts', ContactController::class)->except(['store', 'update']);
     Route::prefix('contacts')->group(function () {
         Route::post('{id}/reply', [ContactController::class, 'reply']);
+    });
+
+    Route::prefix('setting')->group(function () {
+        Route::get('/', [SettingController::class, 'index']);
+        Route::post('/', [SettingController::class, 'update']);
     });
 });

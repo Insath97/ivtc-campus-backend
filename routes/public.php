@@ -7,6 +7,7 @@ use App\Http\Controllers\V1\Public\PublicCertificationController;
 use App\Http\Controllers\V1\Public\PublicPathwayController;
 use App\Http\Controllers\V1\Public\PublicRegistrationController;
 use App\Http\Controllers\V1\Public\PublicContactController;
+use App\Http\Controllers\V1\Public\PublicSettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/public')->group(function () {
@@ -33,4 +34,7 @@ Route::prefix('v1/public')->group(function () {
 
     /* Contact Public Routes */
     Route::post('contact', [PublicContactController::class, 'store']);
+
+    /* System Settings Public Route */
+    Route::get('settings', [PublicSettingController::class, 'index']);
 });

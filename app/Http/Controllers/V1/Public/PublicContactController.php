@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\Public;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateContactRequest;
 use App\Models\Contact;
+use App\Models\SystemSetting;
 use App\Mail\ContactSubmittedMail;
 use App\Traits\ActivityLogTrait;
 use Illuminate\Support\Facades\Mail;
@@ -24,12 +25,18 @@ class PublicContactController extends Controller
 
             $contact = Contact::create($data);
 
-            // Notify administrator with try-catch and activity logging
+            // Determine recipient based on settings: Use specialized email if enabled, otherwise fallback to default config email.
+            $isEnabled = SystemSetting::getValue('enable_contact_notification', '1');
+            $officialEmail = SystemSetting::getValue('contact_notification_email');
+            $defaultEmail = config('mail.from.address');
+
+            $recipient = ($isEnabled == '1' && !empty($officialEmail)) ? $officialEmail : $defaultEmail;
+
             try {
-                Mail::to(config('mail.from.address'))->send(new ContactSubmittedMail($contact));
-                $this->logActivity('MAIL_SENT', 'Contact', "Notification email sent to admin for message from: {$contact->name}");
+                Mail::to($recipient)->send(new ContactSubmittedMail($contact));
+                $this->logActivity('MAIL_SENT', 'Contact', "Notification email sent to ({$recipient}) for message from: {$contact->name}");
             } catch (\Exception $e) {
-                $this->logActivity('MAIL_FAILED', 'Contact', "Failed to send notification email to admin for message from: {$contact->name}. Error: " . $e->getMessage());
+                $this->logActivity('MAIL_FAILED', 'Contact', "Failed to send notification email to ({$recipient}) for message from: {$contact->name}. Error: " . $e->getMessage());
             }
 
             return response()->json([
