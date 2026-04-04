@@ -6,6 +6,7 @@ use App\Http\Controllers\V1\Public\PublicCategoryController;
 use App\Http\Controllers\V1\Public\PublicCertificationController;
 use App\Http\Controllers\V1\Public\PublicPathwayController;
 use App\Http\Controllers\V1\Public\PublicRegistrationController;
+use App\Http\Controllers\V1\Public\PublicContactController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/public')->group(function () {
@@ -29,4 +30,7 @@ Route::prefix('v1/public')->group(function () {
     Route::get('pathways', [PublicPathwayController::class, 'index']);
     Route::get('registration/programs/{pathway_id}', [PublicRegistrationController::class, 'getProgramsByPathway']);
     Route::post('registration/submit', [PublicRegistrationController::class, 'store']);
+
+    /* Contact Public Routes */
+    Route::post('contact', [PublicContactController::class, 'store']);
 });

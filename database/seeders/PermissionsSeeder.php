@@ -85,6 +85,12 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Registration Approve', 'group_name' => 'Registration Permissions'],
             ['name' => 'Registration Reject',  'group_name' => 'Registration Permissions'],
             ['name' => 'Registration Delete',  'group_name' => 'Registration Permissions'],
+
+            /* Contact Management */
+            ['name' => 'Contact Index',  'group_name' => 'Contact Permissions'],
+            ['name' => 'Contact Show',   'group_name' => 'Contact Permissions'],
+            ['name' => 'Contact Reply',  'group_name' => 'Contact Permissions'],
+            ['name' => 'Contact Delete', 'group_name' => 'Contact Permissions'],
         ];
 
         foreach ($permissions as $permission) {
