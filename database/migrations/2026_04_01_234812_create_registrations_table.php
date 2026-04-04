@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
+            $table->string('registration_code')->unique();
             $table->foreignId('pathway_id')->constrained('pathways')->onDelete('cascade');
 
             // Polymorphic Program Selection
             $table->unsignedBigInteger('program_id');
-            $table->string('program_type');
+            $table->enum('program_type', ['course', 'program']);
 
             // Student Personal Details
             $table->string('full_name');

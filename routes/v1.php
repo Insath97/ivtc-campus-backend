@@ -11,6 +11,7 @@ use App\Http\Controllers\V1\CertificationController;
 use App\Http\Controllers\V1\CmsContentController;
 use App\Http\Controllers\V1\PathwayController;
 use App\Http\Controllers\V1\RegistrationProgramController;
+use App\Http\Controllers\V1\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -86,5 +87,11 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
         Route::get('active/list', [RegistrationProgramController::class, 'getActiveList']);
         Route::get('pathway/{pathway_id}', [RegistrationProgramController::class, 'getByPathway']);
         Route::patch('{id}/toggle-active', [RegistrationProgramController::class, 'toggleActive']);
+    });
+
+    Route::apiResource('registrations', RegistrationController::class)->except(['store', 'update']);
+    Route::prefix('registrations')->group(function () {
+        Route::patch('{id}/approve', [RegistrationController::class, 'approve']);
+        Route::patch('{id}/reject', [RegistrationController::class, 'reject']);
     });
 });

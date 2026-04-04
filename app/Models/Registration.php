@@ -11,6 +11,7 @@ class Registration extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'registration_code',
         'pathway_id',
         'program_id',
         'program_type',
@@ -27,6 +28,37 @@ class Registration extends Model
         'status',
         'remarks',
     ];
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted()
+    {
+        static::creating(function ($registration) {
+            $registration->registration_code = self::generateRegistrationCode();
+        });
+    }
+
+    /**
+     * Generate a unique registration code: IVTC-yymm0001
+     */
+    public static function generateRegistrationCode()
+    {
+        $prefix = 'IVTC-' . date('ym');
+        
+        $latestRegistration = self::where('registration_code', 'like', $prefix . '%')
+            ->orderBy('registration_code', 'desc')
+            ->first();
+
+        if ($latestRegistration) {
+            $lastNumber = intval(substr($latestRegistration->registration_code, -4));
+            $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
+        } else {
+            $newNumber = '0001';
+        }
+
+        return $prefix . $newNumber;
+    }
 
     /**
      * Relationship with the pathway.

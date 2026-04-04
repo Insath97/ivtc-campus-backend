@@ -4,6 +4,8 @@ use App\Http\Controllers\V1\Public\CMSController;
 use App\Http\Controllers\V1\Public\PublicCourseController;
 use App\Http\Controllers\V1\Public\PublicCategoryController;
 use App\Http\Controllers\V1\Public\PublicCertificationController;
+use App\Http\Controllers\V1\Public\PublicPathwayController;
+use App\Http\Controllers\V1\Public\PublicRegistrationController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/public')->group(function () {
@@ -22,4 +24,9 @@ Route::prefix('v1/public')->group(function () {
 
     /* CMS Public Routes */
     Route::get('cms/{page}', [CMSController::class, 'getPageContent']);
+
+    /* Registration Public Routes */
+    Route::get('pathways', [PublicPathwayController::class, 'index']);
+    Route::get('registration/programs/{pathway_id}', [PublicRegistrationController::class, 'getProgramsByPathway']);
+    Route::post('registration/submit', [PublicRegistrationController::class, 'store']);
 });

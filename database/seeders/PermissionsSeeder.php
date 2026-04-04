@@ -78,6 +78,13 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Registration Program Update',        'group_name' => 'Registration Program Permissions'],
             ['name' => 'Registration Program Delete',        'group_name' => 'Registration Program Permissions'],
             ['name' => 'Registration Program Toggle Active', 'group_name' => 'Registration Program Permissions'],
+
+            /* Registration Management */
+            ['name' => 'Registration Index',   'group_name' => 'Registration Permissions'],
+            ['name' => 'Registration Show',    'group_name' => 'Registration Permissions'],
+            ['name' => 'Registration Approve', 'group_name' => 'Registration Permissions'],
+            ['name' => 'Registration Reject',  'group_name' => 'Registration Permissions'],
+            ['name' => 'Registration Delete',  'group_name' => 'Registration Permissions'],
         ];
 
         foreach ($permissions as $permission) {
