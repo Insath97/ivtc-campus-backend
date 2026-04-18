@@ -102,6 +102,15 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Batch Update',        'group_name' => 'Batch Permissions'],
             ['name' => 'Batch Delete',        'group_name' => 'Batch Permissions'],
             ['name' => 'Batch Toggle Active', 'group_name' => 'Batch Permissions'],
+
+            /* Learning Material Management */
+            ['name' => 'Learning Material Index',         'group_name' => 'Learning Material Permissions'],
+            ['name' => 'Learning Material Create',        'group_name' => 'Learning Material Permissions'],
+            ['name' => 'Learning Material Update',        'group_name' => 'Learning Material Permissions'],
+            ['name' => 'Learning Material Soft Delete',   'group_name' => 'Learning Material Permissions'],
+            ['name' => 'Learning Material Force Delete',  'group_name' => 'Learning Material Permissions'],
+            ['name' => 'Learning Material Restore',       'group_name' => 'Learning Material Permissions'],
+            ['name' => 'Learning Material Toggle Active', 'group_name' => 'Learning Material Permissions'],
         ];
 
         foreach ($permissions as $permission) {
