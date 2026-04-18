@@ -95,6 +95,13 @@ class PermissionsSeeder extends Seeder
             /* Setting Management */
             ['name' => 'Setting Index',  'group_name' => 'Setting Permissions'],
             ['name' => 'Setting Update', 'group_name' => 'Setting Permissions'],
+
+            /* Batch Management */
+            ['name' => 'Batch Index',         'group_name' => 'Batch Permissions'],
+            ['name' => 'Batch Create',        'group_name' => 'Batch Permissions'],
+            ['name' => 'Batch Update',        'group_name' => 'Batch Permissions'],
+            ['name' => 'Batch Delete',        'group_name' => 'Batch Permissions'],
+            ['name' => 'Batch Toggle Active', 'group_name' => 'Batch Permissions'],
         ];
 
         foreach ($permissions as $permission) {

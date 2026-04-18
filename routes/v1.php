@@ -14,6 +14,7 @@ use App\Http\Controllers\V1\RegistrationProgramController;
 use App\Http\Controllers\V1\RegistrationController;
 use App\Http\Controllers\V1\ContactController;
 use App\Http\Controllers\V1\SettingController;
+use App\Http\Controllers\V1\BatchController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -105,5 +106,11 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::prefix('setting')->group(function () {
         Route::get('/', [SettingController::class, 'index']);
         Route::post('/', [SettingController::class, 'update']);
+    });
+
+    Route::apiResource('batches', BatchController::class);
+    Route::prefix('batches')->group(function () {
+        Route::get('active/list', [BatchController::class, 'getActiveList']);
+        Route::patch('{id}/toggle-active', [BatchController::class, 'toggleActive']);
     });
 });
