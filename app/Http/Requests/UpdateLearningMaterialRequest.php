@@ -20,11 +20,11 @@ class UpdateLearningMaterialRequest extends FormRequest
             'subject_name' => 'sometimes|string|max:255',
             'description' => 'sometimes|nullable|string',
             'material_type' => 'sometimes|in:notes,video,youtube,slides,handout,podcast,ebook,live_class,link',
-            
+
             // File is optional on update, but if provided must match type
-            'file' => 'sometimes|file|mimes:mp4,mov,avi,wmv,pdf,doc,docx,ppt,pptx,txt,zip|max:102400',
+            'file' => 'sometimes|file|mimes:mp4,mkv,mov,avi,wmv,pdf,doc,docx,ppt,pptx,txt,zip,png,jpeg,jpg|max:102400',
             'external_url' => 'sometimes|nullable|url|max:2000',
-            
+
             'uploaded_date' => 'sometimes|nullable|date',
             'is_active' => 'sometimes|boolean',
         ];
