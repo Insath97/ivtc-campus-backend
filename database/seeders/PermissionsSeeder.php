@@ -111,6 +111,15 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Learning Material Force Delete',  'group_name' => 'Learning Material Permissions'],
             ['name' => 'Learning Material Restore',       'group_name' => 'Learning Material Permissions'],
             ['name' => 'Learning Material Toggle Active', 'group_name' => 'Learning Material Permissions'],
+
+            /* Past Paper Management */
+            ['name' => 'Past Paper Index',         'group_name' => 'Past Paper Permissions'],
+            ['name' => 'Past Paper Create',        'group_name' => 'Past Paper Permissions'],
+            ['name' => 'Past Paper Update',        'group_name' => 'Past Paper Permissions'],
+            ['name' => 'Past Paper Soft Delete',   'group_name' => 'Past Paper Permissions'],
+            ['name' => 'Past Paper Force Delete',  'group_name' => 'Past Paper Permissions'],
+            ['name' => 'Past Paper Restore',       'group_name' => 'Past Paper Permissions'],
+            ['name' => 'Past Paper Toggle Active', 'group_name' => 'Past Paper Permissions'],
         ];
 
         foreach ($permissions as $permission) {
