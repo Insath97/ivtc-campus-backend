@@ -16,6 +16,7 @@ use App\Http\Controllers\V1\ContactController;
 use App\Http\Controllers\V1\SettingController;
 use App\Http\Controllers\V1\BatchController;
 use App\Http\Controllers\V1\LearningMaterialController;
+use App\Http\Controllers\V1\PastPaperController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -119,8 +120,15 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::prefix('learning-materials')->group(function () {
         Route::get('active/list', [LearningMaterialController::class, 'getActiveList']);
         Route::patch('{id}/restore', [LearningMaterialController::class, 'restore']);
-        // Match the user's requested pattern for soft deletes (Course pattern)
         Route::delete('{id}/force', [LearningMaterialController::class, 'forceDelete']);
         Route::patch('{id}/toggle-active', [LearningMaterialController::class, 'toggleActive']);
+    });
+
+    Route::apiResource('past-papers', PastPaperController::class);
+    Route::prefix('past-papers')->group(function () {
+        Route::get('active/list', [PastPaperController::class, 'getActiveList']);
+        Route::patch('{id}/restore', [PastPaperController::class, 'restore']);
+        Route::delete('{id}/force', [PastPaperController::class, 'forceDelete']);
+        Route::patch('{id}/toggle-active', [PastPaperController::class, 'toggleActive']);
     });
 });

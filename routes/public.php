@@ -8,6 +8,9 @@ use App\Http\Controllers\V1\Public\PublicPathwayController;
 use App\Http\Controllers\V1\Public\PublicRegistrationController;
 use App\Http\Controllers\V1\Public\PublicContactController;
 use App\Http\Controllers\V1\Public\PublicSettingController;
+use App\Http\Controllers\V1\Public\PublicBatchController;
+use App\Http\Controllers\V1\Public\PublicLearningMaterialController;
+use App\Http\Controllers\V1\Public\PublicPastPaperController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/public')->group(function () {
@@ -37,4 +40,13 @@ Route::prefix('v1/public')->group(function () {
 
     /* System Settings Public Route */
     Route::get('settings', [PublicSettingController::class, 'index']);
+
+    /* Batch Public Routes */
+    Route::get('batches', [PublicBatchController::class, 'index']);
+
+    /* Learning Material Public Routes */
+    Route::get('learning-materials', [PublicLearningMaterialController::class, 'index']);
+
+    /* Past Paper Public Routes */
+    Route::get('past-papers', [PublicPastPaperController::class, 'index']);
 });
