@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -31,6 +32,8 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'email_verified_at',
         'email_verification_token',
         'email_verification_token_expires_at',
+        'password_reset_token',
+        'password_reset_token_expires_at',
     ];
 
     /**
@@ -68,10 +71,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function getJWTCustomClaims()
     {
         return [
-            'id'        => $this->id,
-            'name'      => $this->name,
-            'username'  => $this->username,
-            'email'     => $this->email,
+            'id' => $this->id,
+            'name' => $this->name,
+            'username' => $this->username,
+            'email' => $this->email,
         ];
     }
 
@@ -105,7 +108,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     /**
      * Mark the user's email as verified
-    */
+     */
     public function markEmailAsVerifiedcheck(string $token)
     {
         $this->update([
@@ -117,7 +120,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     /**
      * Mark the user's email as verified without a token
-    */
+     */
     public function markEmailAsVerified()
     {
         $this->update([
@@ -145,10 +148,52 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     /**
      * Check if the user has verified their email
-    */
+     */
     public function hasVerifiedEmail(): bool
     {
         return !is_null($this->email_verified_at);
     }
 
+    /**
+     * Generate a unique password reset token
+     */
+    public function generatePasswordResetToken(): string
+    {
+        $token = bin2hex(random_bytes(32));
+
+        $this->update([
+            'password_reset_token' => $token,
+            'password_reset_token_expires_at' => now()->addHours(1)
+        ]);
+
+        return $token;
+    }
+
+    /**
+     * Check if the password reset token is valid
+     */
+    public function isPasswordResetTokenValid(string $token): bool
+    {
+        if ($this->password_reset_token !== $token) {
+            return false;
+        }
+
+        if (!$this->password_reset_token_expires_at) {
+            return false;
+        }
+
+        return now()->lessThan($this->password_reset_token_expires_at);
+    }
+
+    /**
+     * Reset the user's password and clear the token
+     */
+    public function markPasswordAsReset(string $newPassword)
+    {
+        $this->update([
+            'password' => Hash::make($newPassword),
+            'password_reset_token' => null,
+            'password_reset_token_expires_at' => null
+        ]);
+    }
 }

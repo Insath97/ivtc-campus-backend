@@ -7,9 +7,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\ResetPasswordRequest;
+use App\Mail\ForgotPasswordMail;
+use App\Traits\ActivityLogTrait;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
+    use ActivityLogTrait;
       /**
      * Admin Login
      */
@@ -166,6 +175,99 @@ class AuthController extends Controller
                 'status' => 'error',
                 'message' => 'Failed to fetch user details',
                 'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
+            ], 500);
+        }
+    }
+    /**
+     * Admin Forgot Password - Send reset link
+     *
+     * @param ForgotPasswordRequest $request
+     * @return JsonResponse
+     */
+    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
+    {
+        try {
+            // In this project, we check for role existence to identify admin-eligible users
+            $user = User::query()->where('email', $request->email)->first();
+
+            if (!$user || !$user->roles()->exists()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Admin account not found with this email.'
+                ], 404);
+            }
+
+            $token = $user->generatePasswordResetToken();
+            $resetUrl = config('app.admin_url') . '/reset-password?token=' . $token . '&email=' . urlencode($user->email);
+
+            Mail::to($user->email)->send(new ForgotPasswordMail($user->name, $resetUrl));
+
+            $this->logActivity(
+                'AUTH',
+                'Admin Forgot Password Request',
+                'Password reset link sent to admin: ' . $user->email,
+                ['email' => $user->email]
+            );
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Password reset link has been sent to your admin email.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to send reset link',
+                'error' => config('app.debug') ? $e->getMessage() : 'Internal server error'
+            ], 500);
+        }
+    }
+    /**
+     * Admin Reset Password
+     *
+     * @param ResetPasswordRequest $request
+     * @return JsonResponse
+     */
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
+    {
+        DB::beginTransaction();
+        try {
+            $user = User::query()->where('email', $request->email)->first();
+
+            if (!$user || !$user->roles()->exists()) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Admin account not found.'
+                ], 404);
+            }
+
+            if (!$user->isPasswordResetTokenValid($request->token)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid or expired reset token.'
+                ], 400);
+            }
+
+            $user->markPasswordAsReset($request->password);
+
+            $this->logActivity(
+                'AUTH',
+                'Admin Reset Password',
+                'Admin password reset successful for: ' . $user->email,
+                ['email' => $user->email]
+            );
+
+            DB::commit();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Admin password has been reset successfully. You can now login to the admin panel.'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to reset admin password',
+                'error' => config('app.debug') ? $e->getMessage() : 'Internal server error'
             ], 500);
         }
     }

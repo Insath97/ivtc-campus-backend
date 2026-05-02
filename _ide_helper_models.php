@@ -44,6 +44,34 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $slug
+ * @property int $year
+ * @property string|null $description
+ * @property bool $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch active()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch ordered()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch search($search)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Batch whereYear($value)
+ */
+	class Batch extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $slug
  * @property string|null $description
  * @property bool $is_active
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -301,6 +329,88 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
+ * @property int $batch_id
+ * @property string $subject_name
+ * @property string|null $description
+ * @property string $material_type
+ * @property string|null $file_path
+ * @property string|null $external_url
+ * @property string|null $uploaded_date
+ * @property bool $is_active
+ * @property int|null $created_by
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Batch $batch
+ * @property-read \App\Models\User|null $creator
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial active()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial ordered()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial search($search)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereBatchId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereExternalUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereFilePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereMaterialType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereSubjectName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial whereUploadedDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LearningMaterial withoutTrashed()
+ */
+	class LearningMaterial extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $batch_id
+ * @property string|null $description
+ * @property string $paper_file_path
+ * @property bool $has_scheme
+ * @property string|null $scheme_file_path
+ * @property bool $is_active
+ * @property int|null $created_by
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Batch $batch
+ * @property-read \App\Models\User|null $creator
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper active()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper ordered()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper search($search)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper whereBatchId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper whereHasScheme($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper wherePaperFilePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper whereSchemeFilePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Pastpaper withoutTrashed()
+ */
+	class Pastpaper extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
  * @property string $name
  * @property string $slug
  * @property string|null $description
@@ -411,9 +521,19 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property int $id
+ * @property string $key
+ * @property string $value
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemSetting newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemSetting newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemSetting query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemSetting whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemSetting whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemSetting whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemSetting whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemSetting whereValue($value)
  */
 	class SystemSetting extends \Eloquent {}
 }

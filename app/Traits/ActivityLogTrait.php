@@ -14,9 +14,10 @@ trait ActivityLogTrait
      * @param string $action
      * @param string $module
      * @param string $description
+     * @param array|null $data
      * @return void
      */
-    public function logActivity(string $action, string $module, string $description)
+    public function logActivity(string $action, string $module, string $description, ?array $data = null)
     {
         try {
             // DB logging
