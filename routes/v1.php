@@ -3,6 +3,7 @@
 use App\Http\Controllers\V1\ActivityLogController;
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\CategoryController;
+use App\Http\Controllers\V1\DatabaseBackupController;
 use App\Http\Controllers\V1\PermissionController;
 use App\Http\Controllers\V1\RoleController;
 use App\Http\Controllers\V1\UserController;
@@ -110,6 +111,7 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::prefix('setting')->group(function () {
         Route::get('/', [SettingController::class, 'index']);
         Route::post('/', [SettingController::class, 'update']);
+        Route::get('database/export', [DatabaseBackupController::class, 'export']);
     });
 
     Route::apiResource('batches', BatchController::class);
