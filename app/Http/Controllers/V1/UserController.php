@@ -114,7 +114,7 @@ class UserController extends Controller implements HasMiddleware
             $currentUser = auth('api')->user();
             $data = $request->validated();
 
-            $role = Role::where('name', $data['role'])->first();
+            $role = Role::query()->where('name', $data['role'])->first();
             if ($role->name === 'Super Admin' && !$currentUser->hasRole('Super Admin')) {
                 return response()->json([
                     'status' => 'error',
@@ -240,7 +240,7 @@ class UserController extends Controller implements HasMiddleware
             $data = $request->validated();
 
             if (isset($data['role'])) {
-                $role = Role::where('name', $data['role'])->first();
+                $role = Role::query()->where('name', $data['role'])->first();
                 if ($role->name === 'Super Admin' && !$currentUser->isSuperAdmin()) {
                     return response()->json([
                         'status' => 'error',

@@ -26,11 +26,11 @@ class PublicRegistrationRequest extends FormRequest
                 function ($attribute, $value, $fail) {
                     $type = $this->input('program_type');
                     if ($type === 'course') {
-                        if (!Course::where('id', $value)->active()->forRegistration()->exists()) {
+                        if (!Course::query()->where('id', $value)->active()->forRegistration()->exists()) {
                             $fail('The selected course is invalid, inactive, or not available for registration.');
                         }
                     } elseif ($type === 'program') {
-                        if (!RegistrationProgram::where('id', $value)->active()->exists()) {
+                        if (!RegistrationProgram::query()->where('id', $value)->active()->exists()) {
                             $fail('The selected program is invalid or inactive.');
                         }
                     }

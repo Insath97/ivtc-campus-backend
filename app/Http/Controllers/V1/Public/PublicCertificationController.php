@@ -31,7 +31,7 @@ class PublicCertificationController extends Controller
         }
 
         try {
-            $certification = Certification::where(function($query) use ($request) {
+            $certification = Certification::query()->where(function($query) use ($request) {
                 if ($request->filled('verification_code')) {
                     $query->orWhere('verification_code', $request->verification_code);
                 }

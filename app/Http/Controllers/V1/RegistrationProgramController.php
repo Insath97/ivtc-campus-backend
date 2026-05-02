@@ -33,7 +33,7 @@ class RegistrationProgramController extends Controller implements HasMiddleware
     {
         try {
             $perPage = $request->get('per_page', 15);
-            $query = RegistrationProgram::with('pathway');
+            $query = RegistrationProgram::query()->with('pathway');
 
             // Search
             if ($request->has('search') && $request->search != '') {
@@ -241,7 +241,7 @@ class RegistrationProgramController extends Controller implements HasMiddleware
     public function getByPathway($pathway_id)
     {
         try {
-            $programs = RegistrationProgram::where('pathway_id', $pathway_id)
+            $programs = RegistrationProgram::query()->where('pathway_id', $pathway_id)
                 ->active()
                 ->ordered()
                 ->get(['id', 'name', 'slug']);

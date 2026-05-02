@@ -72,7 +72,8 @@ class CmsContentController extends Controller implements HasMiddleware
                 $label = $item['label'] ?? null;
 
                 // Find existing content to handle file replacement
-                $existing = CmsContent::where('page', $page)
+                $existing = CmsContent::query()
+                    ->where('page', $page)
                     ->where('section', $section)
                     ->where('key', $key)
                     ->first();
