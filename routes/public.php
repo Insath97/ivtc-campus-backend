@@ -14,7 +14,6 @@ use App\Http\Controllers\V1\Public\PublicPastPaperController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/public')->group(function () {
-
     /* Category Public Routes */
     Route::get('categories', [PublicCategoryController::class, 'index']);
     Route::get('categories/{id_or_slug}', [PublicCategoryController::class, 'show']);
@@ -33,10 +32,10 @@ Route::prefix('v1/public')->group(function () {
     /* Registration Public Routes */
     Route::get('pathways', [PublicPathwayController::class, 'index']);
     Route::get('registration/programs/{pathway_id}', [PublicRegistrationController::class, 'getProgramsByPathway']);
-    Route::post('registration/submit', [PublicRegistrationController::class, 'store']);
+    Route::post('registration/submit', [PublicRegistrationController::class, 'store'])->middleware('throttle:uploads');
 
     /* Contact Public Routes */
-    Route::post('contact', [PublicContactController::class, 'store']);
+    Route::post('contact', [PublicContactController::class, 'store'])->middleware('throttle:uploads');
 
     /* System Settings Public Route */
     Route::get('settings', [PublicSettingController::class, 'index']);

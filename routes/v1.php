@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     /* login */
-    Route::post('login', [AuthController::class, 'login']);
+    Route::post('login', [AuthController::class, 'login'])->middleware('throttle:auth');
 });
 
 /* protected routes */
@@ -43,7 +43,7 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::prefix('users')->group(function () {
         Route::patch('{id}/activate', [UserController::class, 'activate']);
         Route::patch('{id}/deactivate', [UserController::class, 'deactivate']);
-        Route::patch('{id}/profile-image', [UserController::class, 'updateProfileImage']);
+        Route::patch('{id}/profile-image', [UserController::class, 'updateProfileImage'])->middleware('throttle:uploads');
         Route::delete('{id}/profile-image', [UserController::class, 'removeProfileImage']);
     });
 
@@ -70,7 +70,7 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
 
     Route::apiResource('certifications', CertificationController::class);
     Route::prefix('certifications')->group(function () {
-        Route::post('import', [CertificationController::class, 'bulkImport']);
+        Route::post('import', [CertificationController::class, 'bulkImport'])->middleware('throttle:uploads');
         Route::patch('{id}/restore', [CertificationController::class, 'restore']);
         Route::delete('{id}/force', [CertificationController::class, 'forceDelete']);
         Route::patch('{id}/toggle-active', [CertificationController::class, 'toggleActive']);
@@ -118,6 +118,8 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
 
     Route::apiResource('learning-materials', LearningMaterialController::class);
     Route::prefix('learning-materials')->group(function () {
+        Route::post('/', [LearningMaterialController::class, 'store'])->middleware('throttle:uploads');
+        Route::patch('{id}', [LearningMaterialController::class, 'update'])->middleware('throttle:uploads');
         Route::get('active/list', [LearningMaterialController::class, 'getActiveList']);
         Route::patch('{id}/restore', [LearningMaterialController::class, 'restore']);
         Route::delete('{id}/force', [LearningMaterialController::class, 'forceDelete']);
@@ -126,6 +128,8 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
 
     Route::apiResource('past-papers', PastPaperController::class);
     Route::prefix('past-papers')->group(function () {
+        Route::post('/', [PastPaperController::class, 'store'])->middleware('throttle:uploads');
+        Route::patch('{id}', [PastPaperController::class, 'update'])->middleware('throttle:uploads');
         Route::get('active/list', [PastPaperController::class, 'getActiveList']);
         Route::patch('{id}/restore', [PastPaperController::class, 'restore']);
         Route::delete('{id}/force', [PastPaperController::class, 'forceDelete']);
