@@ -121,6 +121,15 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Past Paper Restore', 'group_name' => 'Past Paper Permissions'],
             ['name' => 'Past Paper Toggle Active', 'group_name' => 'Past Paper Permissions'],
 
+            /* Lecturer Management */
+            ['name' => 'Lecturer Index', 'group_name' => 'Lecturer Permissions'],
+            ['name' => 'Lecturer Create', 'group_name' => 'Lecturer Permissions'],
+            ['name' => 'Lecturer Update', 'group_name' => 'Lecturer Permissions'],
+            ['name' => 'Lecturer Soft Delete', 'group_name' => 'Lecturer Permissions'],
+            ['name' => 'Lecturer Force Delete', 'group_name' => 'Lecturer Permissions'],
+            ['name' => 'Lecturer Restore', 'group_name' => 'Lecturer Permissions'],
+            ['name' => 'Lecturer Toggle Active', 'group_name' => 'Lecturer Permissions'],
+
             /* System Management */
             ['name' => 'Database Export', 'group_name' => 'System Permissions'],
         ];
