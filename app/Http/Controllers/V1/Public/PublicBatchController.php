@@ -4,7 +4,6 @@ namespace App\Http\Controllers\V1\Public;
 
 use App\Http\Controllers\Controller;
 use App\Models\Batch;
-use Illuminate\Http\Request;
 
 class PublicBatchController extends Controller
 {
