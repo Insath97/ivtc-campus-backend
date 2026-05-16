@@ -14,6 +14,9 @@ class Contact extends Model
         'email',
         'subject',
         'message',
+    ];
+
+    protected $hidden = [
         'status',
         'is_replied',
         'replied_by',

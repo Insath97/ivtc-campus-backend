@@ -13,6 +13,9 @@ class RegistrationProgram extends Model
         'pathway_id',
         'name',
         'slug',
+    ];
+
+    protected $hidden = [
         'is_active',
     ];
 

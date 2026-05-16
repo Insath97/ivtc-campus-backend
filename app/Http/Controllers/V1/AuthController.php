@@ -190,11 +190,12 @@ class AuthController extends Controller
             // In this project, we check for role existence to identify admin-eligible users
             $user = User::query()->where('email', $request->email)->first();
 
+            // Return generic success even if user not found to prevent user enumeration
             if (!$user || !$user->roles()->exists()) {
                 return response()->json([
-                    'status' => 'error',
-                    'message' => 'Admin account not found with this email.'
-                ], 404);
+                    'status' => 'success',
+                    'message' => 'If this email is registered in our admin system, a password reset link has been sent.'
+                ]);
             }
 
             $token = $user->generatePasswordResetToken();
@@ -205,13 +206,13 @@ class AuthController extends Controller
             $this->logActivity(
                 'AUTH',
                 'Admin Forgot Password Request',
-                'Password reset link sent to admin: ' . $user->email,
+                'Password reset link requested for admin: ' . $user->email,
                 ['email' => $user->email]
             );
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Password reset link has been sent to your admin email.'
+                'message' => 'If this email is registered in our admin system, a password reset link has been sent.'
             ]);
         } catch (\Exception $e) {
             return response()->json([

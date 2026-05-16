@@ -24,16 +24,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         'username',
         'email',
         'password',
-        'is_active',
-        'can_login',
         'profile_image',
         'last_login_at',
         'last_login_ip',
-        'email_verified_at',
-        'email_verification_token',
-        'email_verification_token_expires_at',
-        'password_reset_token',
-        'password_reset_token_expires_at',
     ];
 
     /**
@@ -44,6 +37,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'password_reset_token',
+        'password_reset_token_expires_at',
+        'email_verification_token',
+        'email_verification_token_expires_at',
     ];
 
     /**

@@ -16,8 +16,13 @@ class Pastpaper extends Model
         'description',
         'paper_file_path',
         'scheme_file_path',
+        'created_by',
+    ];
+
+    protected $hidden = [
         'is_active',
         'created_by',
+        'deleted_at',
     ];
 
     protected $casts = [

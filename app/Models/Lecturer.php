@@ -23,8 +23,12 @@ class Lecturer extends Model
         'twitter_url',
         'website_url',
         'join_date',
+        'created_by',
+    ];
+    protected $hidden = [
         'is_active',
         'created_by',
+        'deleted_at',
     ];
 
     protected $casts = [

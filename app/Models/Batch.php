@@ -14,6 +14,9 @@ class Batch extends Model
         'slug',
         'year',
         'description',
+    ];
+
+    protected $hidden = [
         'is_active',
     ];
 

@@ -20,7 +20,11 @@ class Certification extends Model
         'verification_code',
         'certificate_number',
         'nic',
+    ];
+
+    protected $hidden = [
         'is_active',
+        'deleted_at',
     ];
 
     protected $casts = [

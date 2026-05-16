@@ -18,8 +18,13 @@ class LearningMaterial extends Model
         'file_path',
         'external_url',
         'uploaded_date',
+        'created_by',
+    ];
+
+    protected $hidden = [
         'is_active',
         'created_by',
+        'deleted_at',
     ];
 
     protected $casts = [

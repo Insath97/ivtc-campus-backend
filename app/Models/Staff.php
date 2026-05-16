@@ -24,6 +24,9 @@ class Staff extends Model
         'dob',
         'nic_number',
         'profile_image',
+        'created_by',
+    ];
+    protected $hidden = [
         'is_active',
         'created_by',
     ];

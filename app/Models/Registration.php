@@ -25,8 +25,13 @@ class Registration extends Model
         'city',
         'school_name',
         'occupation',
+        'remarks',
+    ];
+
+    protected $hidden = [
         'status',
         'remarks',
+        'deleted_at',
     ];
 
     /**

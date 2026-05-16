@@ -13,6 +13,9 @@ class Pathway extends Model
         'name',
         'slug',
         'description',
+    ];
+
+    protected $hidden = [
         'is_active',
     ];
 

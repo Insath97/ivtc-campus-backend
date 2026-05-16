@@ -21,12 +21,16 @@ class Course extends Model
         'medium',
         'short_description',
         'full_description',
-        'show_in_registration',
-        'is_active',
-        'is_new',
         'has_certificate',
         'primary_image',
         'fees_structure',
+    ];
+
+    protected $hidden = [
+        'is_active',
+        'is_new',
+        'show_in_registration',
+        'deleted_at',
     ];
 
     protected $casts = [
