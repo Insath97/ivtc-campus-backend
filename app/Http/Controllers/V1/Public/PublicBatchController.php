@@ -15,7 +15,7 @@ class PublicBatchController extends Controller
     {
         try {
             $batches = Batch::active()->ordered()->get(['id', 'name', 'slug', 'year', 'description']);
-            
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Public batches retrieved successfully',

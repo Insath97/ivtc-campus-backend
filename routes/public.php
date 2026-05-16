@@ -12,6 +12,7 @@ use App\Http\Controllers\V1\Public\PublicBatchController;
 use App\Http\Controllers\V1\Public\PublicLearningMaterialController;
 use App\Http\Controllers\V1\Public\PublicPastPaperController;
 use App\Http\Controllers\V1\Public\PublicLecturerController;
+use App\Http\Controllers\V1\Public\PublicStaffController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1/public')->group(function () {
@@ -53,4 +54,8 @@ Route::prefix('v1/public')->group(function () {
     /* Lecturer Public Routes */
     Route::get('lecturers', [PublicLecturerController::class, 'index']);
     Route::get('lecturers/{id_or_slug}', [PublicLecturerController::class, 'show']);
+
+    /* Staff Public Routes */
+    Route::get('staffs', [PublicStaffController::class, 'index']);
+    Route::get('staffs/{id_or_slug}', [PublicStaffController::class, 'show']);
 });

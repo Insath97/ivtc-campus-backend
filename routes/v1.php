@@ -19,6 +19,7 @@ use App\Http\Controllers\V1\BatchController;
 use App\Http\Controllers\V1\LearningMaterialController;
 use App\Http\Controllers\V1\PastPaperController;
 use App\Http\Controllers\V1\LecturerController;
+use App\Http\Controllers\V1\StaffController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -147,5 +148,11 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
         Route::patch('{id}/restore', [LecturerController::class, 'restore']);
         Route::delete('{id}/force', [LecturerController::class, 'forceDelete']);
         Route::patch('{id}/toggle-active', [LecturerController::class, 'toggleActive']);
+    });
+
+    Route::apiResource('staffs', StaffController::class);
+    Route::prefix('staffs')->group(function () {
+        Route::get('active/list', [StaffController::class, 'getActiveList']);
+        Route::patch('{id}/toggle-active', [StaffController::class, 'toggleActive']);
     });
 });

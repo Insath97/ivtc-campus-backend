@@ -130,6 +130,13 @@ class PermissionsSeeder extends Seeder
             ['name' => 'Lecturer Restore', 'group_name' => 'Lecturer Permissions'],
             ['name' => 'Lecturer Toggle Active', 'group_name' => 'Lecturer Permissions'],
 
+            /* Staff Management */
+            ['name' => 'Staff Index', 'group_name' => 'Staff Permissions'],
+            ['name' => 'Staff Create', 'group_name' => 'Staff Permissions'],
+            ['name' => 'Staff Update', 'group_name' => 'Staff Permissions'],
+            ['name' => 'Staff Delete', 'group_name' => 'Staff Permissions'],
+            ['name' => 'Staff Toggle Active', 'group_name' => 'Staff Permissions'],
+
             /* System Management */
             ['name' => 'Database Export', 'group_name' => 'System Permissions'],
         ];
