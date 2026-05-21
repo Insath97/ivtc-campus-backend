@@ -139,6 +139,9 @@ class PermissionsSeeder extends Seeder
 
             /* System Management */
             ['name' => 'Database Export', 'group_name' => 'System Permissions'],
+
+            /* Dashboard Management */
+            ['name' => 'Dashboard View', 'group_name' => 'Dashboard Permissions'],
         ];
 
         foreach ($permissions as $permission) {

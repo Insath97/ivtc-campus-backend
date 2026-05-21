@@ -20,6 +20,7 @@ use App\Http\Controllers\V1\LearningMaterialController;
 use App\Http\Controllers\V1\PastPaperController;
 use App\Http\Controllers\V1\LecturerController;
 use App\Http\Controllers\V1\StaffController;
+use App\Http\Controllers\V1\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -35,6 +36,7 @@ Route::prefix('v1')->group(function () {
 /* protected routes */
 Route::middleware(['auth:api'])->prefix('v1')->group(function () {
 
+    Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
 
