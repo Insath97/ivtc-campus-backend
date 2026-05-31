@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
+use Illuminate\Validation\Rule;
+
 class UpdateCourseRequest extends FormRequest
 {
     public function authorize(): bool
@@ -13,14 +15,39 @@ class UpdateCourseRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        if ($this->has('name') && empty($this->slug)) {
+            $this->merge([
+                'slug' => \Illuminate\Support\Str::slug($this->name),
+            ]);
+        }
+    }
+
     public function rules(): array
     {
         $id = $this->route('course') ?? $this->route('id');
+        $course = \App\Models\Course::find($id);
+        $categoryId = $this->category_id ?? ($course ? $course->category_id : null);
+
         return [
             'category_id' => 'sometimes|exists:categories,id',
             'name' => 'sometimes|string|max:255',
-            'slug' => 'sometimes|nullable|string|unique:courses,slug,' . $id ,
-            'code' => 'sometimes|string|unique:courses,code,' . $id,
+            'slug' => [
+                'sometimes',
+                'nullable',
+                'string',
+                Rule::unique('courses')->where(function ($query) use ($categoryId) {
+                    return $query->where('category_id', $categoryId);
+                })->ignore($id),
+            ],
+            'code' => [
+                'sometimes',
+                'string',
+                Rule::unique('courses')->where(function ($query) use ($categoryId) {
+                    return $query->where('category_id', $categoryId);
+                })->ignore($id),
+            ],
             'duration' => 'sometimes|integer|min:1',
             'duration_unit' => 'sometimes|in:month,year',
             'level' => 'sometimes|in:Beginner,Intermediate,Advanced,Professional',

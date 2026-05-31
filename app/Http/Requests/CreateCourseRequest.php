@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
+use Illuminate\Validation\Rule;
+
 class CreateCourseRequest extends FormRequest
 {
     public function authorize(): bool
@@ -13,13 +15,37 @@ class CreateCourseRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        if (empty($this->slug) && !empty($this->name)) {
+            $this->merge([
+                'slug' => \Illuminate\Support\Str::slug($this->name),
+            ]);
+        }
+    }
+
     public function rules(): array
     {
         return [
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
-            'slug' => 'sometimes|nullable|string|unique:courses,slug|max:255',
-            'code' => 'required|string|unique:courses,code|max:50',
+            'slug' => [
+                'sometimes',
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('courses')->where(function ($query) {
+                    return $query->where('category_id', $this->category_id);
+                }),
+            ],
+            'code' => [
+                'required',
+                'string',
+                'max:50',
+                Rule::unique('courses')->where(function ($query) {
+                    return $query->where('category_id', $this->category_id);
+                }),
+            ],
             'duration' => 'required|integer|min:1',
             'duration_unit' => 'required|in:month,year',
             'level' => 'required|in:Beginner,Intermediate,Advanced,Professional',
