@@ -29,8 +29,6 @@ class Registration extends Model
     ];
 
     protected $hidden = [
-        'status',
-        'remarks',
         'deleted_at',
     ];
 
