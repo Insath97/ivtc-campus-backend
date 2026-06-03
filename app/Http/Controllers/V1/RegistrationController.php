@@ -22,6 +22,8 @@ class RegistrationController extends Controller implements HasMiddleware
             new Middleware('permission:Registration Approve', ['only' => ['approve']]),
             new Middleware('permission:Registration Reject', ['only' => ['reject']]),
             new Middleware('permission:Registration Delete', ['only' => ['destroy']]),
+            new Middleware('permission:Registration Restore', ['only' => ['restore']]),
+            new Middleware('permission:Registration Force Delete', ['only' => ['forceDelete']]),
         ];
     }
 
@@ -51,6 +53,11 @@ class RegistrationController extends Controller implements HasMiddleware
             // Status Filter
             if ($request->has('status') && $request->status != '') {
                 $query->where('status', $request->status);
+            }
+
+            // Soft Deleted Filter
+            if ($request->has('trashed') && $request->trashed == 'true') {
+                $query->onlyTrashed();
             }
 
             $registrations = $query->ordered()->paginate($perPage);
@@ -199,16 +206,83 @@ class RegistrationController extends Controller implements HasMiddleware
             $name = $registration->full_name;
             $registration->delete();
 
-            $this->logActivity('DELETE', 'Registration', "Deleted registration: {$code} for {$name}");
+            $this->logActivity('DELETE', 'Registration', "Soft deleted registration: {$code} for {$name}");
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Registration deleted successfully'
+                'message' => 'Registration soft deleted successfully'
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to delete registration',
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
+            ], 500);
+        }
+    }
+
+    /**
+     * Restore the specified soft-deleted registration.
+     */
+    public function restore(string $id)
+    {
+        try {
+            $registration = Registration::onlyTrashed()->find($id);
+
+            if (!$registration) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Trashed registration not found'
+                ], 404);
+            }
+
+            $registration->restore();
+
+            $this->logActivity('RESTORE', 'Registration', "Restored registration: {$registration->registration_code} for {$registration->full_name}");
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Registration restored successfully',
+                'data' => $registration
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to restore registration',
+                'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
+            ], 500);
+        }
+    }
+
+    /**
+     * Permanently delete the specified registration.
+     */
+    public function forceDelete(string $id)
+    {
+        try {
+            $registration = Registration::withTrashed()->find($id);
+
+            if (!$registration) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Registration not found'
+                ], 404);
+            }
+
+            $code = $registration->registration_code;
+            $name = $registration->full_name;
+            $registration->forceDelete();
+
+            $this->logActivity('FORCE_DELETE', 'Registration', "Permanently deleted registration: {$code} for {$name}");
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Registration permanently deleted'
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to force delete registration',
                 'error' => config('app.debug') ? $th->getMessage() : 'Internal server error'
             ], 500);
         }

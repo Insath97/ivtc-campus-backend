@@ -105,6 +105,8 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
     Route::prefix('registrations')->group(function () {
         Route::patch('{id}/approve', [RegistrationController::class, 'approve']);
         Route::patch('{id}/reject', [RegistrationController::class, 'reject']);
+        Route::patch('{id}/restore', [RegistrationController::class, 'restore']);
+        Route::delete('{id}/force', [RegistrationController::class, 'forceDelete']);
     });
 
     Route::apiResource('contacts', ContactController::class)->except(['store', 'update']);
