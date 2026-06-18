@@ -18,7 +18,7 @@ class CreateLecturerRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|unique:lecturers,slug|max:255',
-            'email' => 'required|email|unique:lecturers,email|max:255',
+            'email' => 'nullable|email|unique:lecturers,email|max:255',
             'phone' => 'nullable|string|max:20',
             'specialization' => 'nullable|string|max:255',
             'bio' => 'nullable|string',

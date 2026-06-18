@@ -20,7 +20,7 @@ class UpdateLecturerRequest extends FormRequest
         return [
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:lecturers,slug,' . $id,
-            'email' => 'sometimes|required|email|max:255|unique:lecturers,email,' . $id,
+            'email' => 'sometimes|nullable|email|max:255|unique:lecturers,email,' . $id,
             'phone' => 'nullable|string|max:20',
             'specialization' => 'nullable|string|max:255',
             'bio' => 'nullable|string',
