@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('code')->unique();
             $table->integer('duration');
-            $table->enum('duration_unit', ['month', 'year']);
+            $table->enum('duration_unit', ['month', 'year', 'day']);
             $table->enum('level', ['Beginner', 'Intermediate', 'Advanced', 'Professional']);
             $table->enum('medium', ['English', 'Sinhala', 'Tamil']);
             $table->text('short_description');

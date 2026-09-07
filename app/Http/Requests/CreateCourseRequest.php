@@ -47,7 +47,7 @@ class CreateCourseRequest extends FormRequest
                 }),
             ],
             'duration' => 'required|integer|min:1',
-            'duration_unit' => 'required|in:month,year',
+            'duration_unit' => 'required|in:month,year,day',
             'level' => 'required|in:Beginner,Intermediate,Advanced,Professional',
             'medium' => 'required|in:English,Sinhala,Tamil',
             'short_description' => 'required|string',

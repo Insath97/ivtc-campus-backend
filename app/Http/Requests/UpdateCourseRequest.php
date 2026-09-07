@@ -49,7 +49,7 @@ class UpdateCourseRequest extends FormRequest
                 })->ignore($id),
             ],
             'duration' => 'sometimes|integer|min:1',
-            'duration_unit' => 'sometimes|in:month,year',
+            'duration_unit' => 'sometimes|in:month,year,day',
             'level' => 'sometimes|in:Beginner,Intermediate,Advanced,Professional',
             'medium' => 'sometimes|in:English,Sinhala,Tamil',
             'short_description' => 'sometimes|string',
