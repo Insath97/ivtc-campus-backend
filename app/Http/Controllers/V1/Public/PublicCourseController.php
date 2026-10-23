@@ -40,7 +40,7 @@ class PublicCourseController extends Controller
 
             // New Arrival Filter
             if ($request->has('is_new')) {
-                $query->where('is_new', $request->is_new);
+                $query->where('is_new', $request->boolean('is_new'));
             }
 
             $courses = $query->paginate($perPage, [
@@ -88,6 +88,8 @@ class PublicCourseController extends Controller
                     'data' => []
                 ], 404);
             }
+
+            $course->makeHidden(['is_active', 'show_in_registration']);
 
             return response()->json([
                 'status' => 'success',

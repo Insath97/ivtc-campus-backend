@@ -63,21 +63,21 @@ class CourseController extends Controller implements HasMiddleware
 
             // Active Filter
             if ($request->has('is_active')) {
-                $query->where('is_active', $request->is_active);
+                $query->where('is_active', $request->boolean('is_active'));
             }
 
             // New Arrival Filter
             if ($request->has('is_new')) {
-                $query->where('is_new', $request->is_new);
+                $query->where('is_new', $request->boolean('is_new'));
             }
 
             // Registration Filter
             if ($request->has('show_in_registration')) {
-                $query->where('show_in_registration', $request->show_in_registration);
+                $query->where('show_in_registration', $request->boolean('show_in_registration'));
             }
 
             // Soft Deleted Filter
-            if ($request->has('trashed') && $request->trashed == 'true') {
+            if ($request->has('trashed') && $request->boolean('trashed')) {
                 $query->onlyTrashed();
             }
 

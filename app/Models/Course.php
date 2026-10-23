@@ -24,12 +24,13 @@ class Course extends Model
         'has_certificate',
         'primary_image',
         'fees_structure',
-    ];
-
-    protected $hidden = [
         'is_active',
         'is_new',
         'show_in_registration',
+        'created_by',
+    ];
+
+    protected $hidden = [
         'deleted_at',
     ];
 
