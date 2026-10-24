@@ -20,7 +20,7 @@ class CreateCertificationRequest extends FormRequest
             'starting_date' => 'required|date',
             'ending_date' => 'required|date|after_or_equal:starting_date',
             'entrol_number' => 'nullable|string|unique:certifications,entrol_number|max:255',
-            'course_code' => 'nullable|string|unique:certifications,course_code|max:255',
+            'course_code' => 'nullable|string|max:255',
             'verification_code' => 'required|string|unique:certifications,verification_code|max:255',
             'certificate_number' => 'required|string|unique:certifications,certificate_number|max:255',
             'nic' => 'required|string|unique:certifications,nic|max:255',

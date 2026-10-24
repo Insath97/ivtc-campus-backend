@@ -22,7 +22,7 @@ class UpdateCertificationRequest extends FormRequest
             'starting_date' => 'sometimes|date',
             'ending_date' => 'sometimes|date|after_or_equal:starting_date',
             'entrol_number' => 'sometimes|nullable|string|unique:certifications,entrol_number,' . $id . '|max:255',
-            'course_code' => 'sometimes|nullable|string|unique:certifications,course_code,' . $id . '|max:255',
+            'course_code' => 'sometimes|nullable|string|max:255',
             'verification_code' => 'sometimes|string|unique:certifications,verification_code,' . $id . '|max:255',
             'certificate_number' => 'sometimes|string|unique:certifications,certificate_number,' . $id . '|max:255',
             'nic' => 'sometimes|string|unique:certifications,nic,' . $id . '|max:255',
