@@ -16,7 +16,8 @@ class PublicCourseController extends Controller
         try {
             $perPage = $request->get('per_page', 12);
             $query = Course::active()->ordered()
-                ->with(['category:id,name', 'tags:id,name', 'images:id,course_id,image_path', 'videos']);
+                ->with(['category:id,name', 'tags:id,name', 'images:id,course_id,image_path', 'videos'])
+                ->withCount('registrations as students_count');
 
             // Search
             if ($request->has('search') && $request->search != '') {
@@ -73,7 +74,7 @@ class PublicCourseController extends Controller
                 'tags:id,name,slug',
                 'images:id,course_id,image_path',
                 'videos'
-            ]);
+            ])->withCount('registrations as students_count');
 
             if (is_numeric($id_or_slug)) {
                 $course = $query->find($id_or_slug);

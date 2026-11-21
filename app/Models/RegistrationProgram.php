@@ -32,6 +32,14 @@ class RegistrationProgram extends Model
     }
 
     /**
+     * Relationship with registrations (polymorphic).
+     */
+    public function registrations()
+    {
+        return $this->morphMany(Registration::class, 'program');
+    }
+
+    /**
      * Scope a query to only include active programs.
      */
     public function scopeActive($query)

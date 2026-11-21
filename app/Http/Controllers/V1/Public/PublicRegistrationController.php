@@ -29,13 +29,16 @@ class PublicRegistrationController extends Controller
 
             // If Pro Courses, fetch from courses table
             if ($pathway->slug === 'pro-courses') {
-                $programs = Course::active()->forRegistration()->ordered()->get(['id', 'name', 'slug']);
+                $programs = Course::active()->forRegistration()->ordered()
+                    ->withCount('registrations as students_count')
+                    ->get(['id', 'name', 'slug']);
                 $type = 'course';
             } else {
                 // Otherwise, fetch from registration_programs table
                 $programs = RegistrationProgram::where('pathway_id', $pathway_id)
                     ->active()
                     ->ordered()
+                    ->withCount('registrations as students_count')
                     ->get(['id', 'name', 'slug']);
                 $type = 'program';
             }

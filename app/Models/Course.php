@@ -61,6 +61,11 @@ class Course extends Model
         return $this->belongsToMany(Tag::class, 'course_tags');
     }
 
+    public function registrations()
+    {
+        return $this->morphMany(Registration::class, 'program');
+    }
+
     public function activate()
     {
         $this->update(['is_active' => true]);
